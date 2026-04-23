@@ -1,10 +1,13 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
-from .models import Autor, Libro
-from .forms import AutorForm, LibroForm
+from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 
-# CRUD AUTORES (Function Based Views)
+from .forms import AutorForm, LibroForm
+from .models import Autor, Libro
+
+
+def inicio(request):
+    return redirect('lista_autores')
 
 def lista_autores(request):
     autores = Autor.objects.all()
@@ -41,9 +44,6 @@ def eliminar_autor(request, pk):
         return redirect('lista_autores')
     return render(request, 'gestion/autor_confirm_delete.html', {'autor': autor})
 
-
-# CRUD AUTORES (Class Based Views)
-
 class AutorListView(ListView):
     model = Autor
     template_name = 'gestion/lista_autores.html'
@@ -68,9 +68,6 @@ class AutorDeleteView(DeleteView):
     model = Autor
     template_name = 'gestion/autor_delete.html'
     success_url = reverse_lazy('lista_autores')
-
-
-# CRUD LIBROS (Class Based Views)
 
 class LibroListView(ListView):
     model = Libro
