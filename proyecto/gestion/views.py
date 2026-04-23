@@ -55,4 +55,11 @@ class AutorCreateView(CreateView):
 class AutorDeleteView(DeleteView):
     model = Autor
     template_name = 'gestion/autor_confirm_delete.html'
+    success_url = reverse_lazy('lista_autores') 
+
+    # UPDATE
+class AutorUpdateView(UpdateView):
+    model = Autor
+    form_class = AutorForm
+    template_name = 'gestion/autor_form.html'
     success_url = reverse_lazy('lista_autores')
